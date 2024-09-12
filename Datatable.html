@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap DataTable with DataTables.js</title>
+    <title>Enhanced Bootstrap DataTable with DataTables.js</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        .filter-column {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Bootstrap DataTable Example</h3>
+    <h3 class="text-center mb-4">Enhanced Bootstrap DataTable Example</h3>
     <table id="dataTable" class="table table-bordered table-striped">
         <thead>
+            <tr>
+                <!-- Column filters -->
+                <th><input type="text" class="filter-column form-control" placeholder="Filter Name"></th>
+                <th><input type="text" class="filter-column form-control" placeholder="Filter Age"></th>
+                <th><input type="text" class="filter-column form-control" placeholder="Filter Country"></th>
+                <th><input type="text" class="filter-column form-control" placeholder="Filter Profession"></th>
+            </tr>
             <tr>
                 <th>Name</th>
                 <th>Age</th>
@@ -67,15 +79,20 @@
 
 <script>
     $(document).ready(function() {
-        $('#dataTable').DataTable({
+        // Initialize DataTable with enhanced features
+        var table = $('#dataTable').DataTable({
             "paging": true,
             "searching": true,
-            "info": false,
-            "lengthChange": false,
-            "pageLength": 3, // Number of entries per page
-            "columnDefs": [
-                { "orderable": false, "targets": [1, 2, 3] } // Disable ordering on certain columns
-            ]
+            "info": true,
+            "lengthChange": true, // Allows changing the number of entries per page
+            "pageLength": 5, // Default number of rows displayed per page
+            "order": [], // Enables sorting for all columns
+        });
+
+        // Apply the filter for each column
+        $('.filter-column').on('keyup change', function() {
+            var colIndex = $(this).parent().index();
+            table.column(colIndex).search(this.value).draw();
         });
     });
 </script>
