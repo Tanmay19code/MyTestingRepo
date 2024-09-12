@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap DataTable</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .table-container {
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+        .filter-input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="table-container">
+    <h3 class="text-center mb-4">Bootstrap DataTable Example</h3>
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <input type="text" id="globalSearch" class="form-control" placeholder="Search...">
+        </div>
+    </div>
+    <table id="dataTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><input type="text" class="filter-input form-control" placeholder="Filter Name"></th>
+                <th><input type="text" class="filter-input form-control" placeholder="Filter Age"></th>
+                <th><input type="text" class="filter-input form-control" placeholder="Filter Country"></th>
+                <th><input type="text" class="filter-input form-control" placeholder="Filter Profession"></th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Country</th>
+                <th>Profession</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>28</td>
+                <td>USA</td>
+                <td>Engineer</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>34</td>
+                <td>Canada</td>
+                <td>Doctor</td>
+            </tr>
+            <tr>
+                <td>Michael Brown</td>
+                <td>23</td>
+                <td>UK</td>
+                <td>Designer</td>
+            </tr>
+            <tr>
+                <td>Emily White</td>
+                <td>29</td>
+                <td>Australia</td>
+                <td>Developer</td>
+            </tr>
+            <tr>
+                <td>Robert Black</td>
+                <td>31</td>
+                <td>New Zealand</td>
+                <td>Lawyer</td>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#" onclick="changePage(-1)">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#" id="currentPage">1</a></li>
+            <li class="page-item"><a class="page-link" href="#" onclick="changePage(1)">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    let currentPage = 1;
+    const rowsPerPage = 3;
+    const table = document.getElementById('dataTable');
+    const totalRows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length;
+    const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+    function filterTable() {
+        const globalSearchValue = document.getElementById('globalSearch').value.toLowerCase();
+        const filters = document.querySelectorAll('.filter-input');
+        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+        Array.from(rows).forEach(row => {
+            const cells = row.getElementsByTagName('td');
+            let match = globalSearchValue === '' || Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(globalSearchValue));
+            filters.forEach((filter, index) => {
+                if (filter.value && !cells[index].textContent.toLowerCase().includes(filter.value.toLowerCase())) {
+                    match = false;
+                }
+            });
+            row.style.display = match ? '' : 'none';
+        });
+
+        paginate();
+    }
+
+    function paginate() {
+        const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        Array.from(rows).forEach((row, index) => {
+            row.style.display = (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) ? '' : 'none';
+        });
+        document.getElementById('currentPage').textContent = currentPage;
+    }
+
+    function changePage(direction) {
+        currentPage += direction;
+        currentPage = Math.max(1, Math.min(currentPage, totalPages));
+        paginate();
+    }
+
+    document.getElementById('globalSearch').addEventListener('input', filterTable);
+    document.querySelectorAll('.filter-input').forEach(input => input.addEventListener('input', filterTable));
+    window.onload = paginate;
+</script>
+
+</body>
+</html>
