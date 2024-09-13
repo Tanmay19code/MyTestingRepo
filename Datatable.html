@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Bootstrap DataTable with DataTables.js</title>
+    <title>Thymeleaf DataTable Example</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- DataTables CSS -->
@@ -17,7 +17,7 @@
 <body>
 
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Enhanced Bootstrap DataTable Example</h3>
+    <h3 class="text-center mb-4">Thymeleaf Bootstrap DataTable Example</h3>
     <table id="dataTable" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -35,35 +35,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John Doe</td>
-                <td>28</td>
-                <td>USA</td>
-                <td>Engineer</td>
-            </tr>
-            <tr>
-                <td>Jane Smith</td>
-                <td>34</td>
-                <td>Canada</td>
-                <td>Doctor</td>
-            </tr>
-            <tr>
-                <td>Michael Brown</td>
-                <td>23</td>
-                <td>UK</td>
-                <td>Designer</td>
-            </tr>
-            <tr>
-                <td>Emily White</td>
-                <td>29</td>
-                <td>Australia</td>
-                <td>Developer</td>
-            </tr>
-            <tr>
-                <td>Robert Black</td>
-                <td>31</td>
-                <td>New Zealand</td>
-                <td>Lawyer</td>
+            <!-- Thymeleaf loop to dynamically populate table rows -->
+            <tr th:each="person : ${people}">
+                <td th:text="${person.name}">Name</td>
+                <td th:text="${person.age}">Age</td>
+                <td th:text="${person.country}">Country</td>
+                <td th:text="${person.profession}">Profession</td>
             </tr>
         </tbody>
     </table>
