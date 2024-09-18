@@ -1,0 +1,119 @@
+<!-- Modal Structure -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Additional Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal content with fields and values -->
+                <div class="info-row">
+                    <strong>API Type:</strong> <span id="apiType" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Method:</strong> <span id="method" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>TL Approval Date Time and Comments:</strong> <span id="tlApproval" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Total #:</strong> <span id="totalNumber" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Market:</strong> <span id="market" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Backend Name:</strong> <span id="backendName" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong># of Rules Executed:</strong> <span id="rulesExecuted" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Failed #:</strong> <span id="failedNumber" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>API Framework:</strong> <span id="apiFramework" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Elapsed Time:</strong> <span id="elapsedTime" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Warning #:</strong> <span id="warningNumber" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Code Git Base Path:</strong> <span id="codeGitPath" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Passed #:</strong> <span id="passedNumber" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>External Properties Git Base Path:</strong> <span id="externalGitPath" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>Not Applicable #:</strong> <span id="notApplicableNumber" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>2nd Level Approved On:</strong> <span id="secondLevelApprovedOn" class="copyable"></span>
+                </div>
+                <div class="info-row">
+                    <strong>2nd Level Approval By:</strong> <span id="secondLevelApprovalBy" class="copyable"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-body {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    .info-row {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .info-row:last-child {
+        border-bottom: none;
+    }
+    .info-row strong {
+        display: inline-block;
+        width: 250px;
+        color: #555;
+    }
+    .copyable {
+        cursor: pointer;
+        color: #007bff;
+        text-decoration: underline;
+    }
+    .copyable:hover {
+        color: #0056b3;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        }
+
+        // Handle copy functionality
+        $('.copyable').on('click', function() {
+            const text = $(this).text();
+            copyToClipboard(text);
+            alert('Copied to clipboard: ' + text);
+        });
+    });
+</script>
