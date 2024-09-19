@@ -117,3 +117,59 @@
         });
     });
 </script>
+
+
+========================================================================================================
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy to Clipboard with Icon</title>
+
+    <!-- FontAwesome for the copy icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .copyable {
+            margin-left: 10px;
+        }
+        .copy-icon {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="info-row">
+    <strong>API Type:</strong> 
+    <p id="apiType" class="copyable">REST</p>
+    <!-- Copy icon button -->
+    <i class="fas fa-copy copy-icon" id="copyApiType" title="Copy"></i>
+</div>
+
+<script>
+    // Function to copy text when icon is clicked
+    document.getElementById('copyApiType').addEventListener('click', function() {
+        var textToCopy = document.getElementById('apiType').innerText;
+
+        // Copy the text to the clipboard
+        navigator.clipboard.writeText(textToCopy)
+            .then(function() {
+                alert('Copied to clipboard: ' + textToCopy);
+            })
+            .catch(function(err) {
+                console.error('Error copying text: ', err);
+            });
+    });
+</script>
+
+</body>
+</html>
