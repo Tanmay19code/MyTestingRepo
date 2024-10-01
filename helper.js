@@ -54,16 +54,17 @@ jsonString = jsonString.replace(/(\w+)=([^,{}]*)/g, function(match, key, value) 
         // Handle variables in the form ${variableName}, treat them as strings
         return `"${key}":"${value}"`;
     } else {
-        // Otherwise, it's a regular string, so wrap the value in quotes
+        // Otherwise, it's a string, so wrap the value in quotes
         return `"${key}":"${value}"`;
     }
 });
 
+// Step 3: Replace the remaining '=' signs with colons to make it valid JSON
+jsonString = jsonString.replace(/=/g, ':');
+
 // Output the corrected JSON string
 console.log(jsonString);
 
-// Step 3: Now you can safely parse the string to a JavaScript object
+// Step 4: Now you can safely parse the string to a JavaScript object
 let jsonObject = JSON.parse(jsonString);
 console.log(jsonObject);
-
-
